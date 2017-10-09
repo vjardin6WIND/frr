@@ -352,10 +352,12 @@ void ospf6_interface_if_del(struct interface *ifp)
 		return;
 
 	/* interface stop */
-	if (oi->area)
+	if (oi->area) {
 		thread_execute(master, interface_down, oi, 0);
 
-	listnode_delete(oi->area->if_list, oi);
+		listnode_delete(oi->area->if_list, oi);
+	}
+
 	oi->area = (struct ospf6_area *)NULL;
 
 	/* cut link */
